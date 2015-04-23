@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using Microsoft.CodeAnalysis;
@@ -59,8 +60,8 @@ namespace RoslynNUnitLight
         {
             return new AdhocWorkspace()
                 .AddProject("TestProject", LanguageName)
-                .AddMetadataReference(MetadataReference.CreateFromAssembly(typeof(object).Assembly))
-                .AddMetadataReference(MetadataReference.CreateFromAssembly(typeof(Enumerable).Assembly))
+                .AddMetadataReference(MetadataReference.CreateFromAssembly(typeof(object).GetTypeInfo().Assembly))
+                .AddMetadataReference(MetadataReference.CreateFromAssembly(typeof(Enumerable).GetTypeInfo().Assembly))
                 .AddDocument("TestDocument", code);
         }
 

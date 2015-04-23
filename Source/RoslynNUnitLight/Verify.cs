@@ -25,6 +25,5 @@ namespace RoslynNUnitLight
 
             Assert.That(text, Is.EqualTo(expectedCode));
         }
-
     }
 }

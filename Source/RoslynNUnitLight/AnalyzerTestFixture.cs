@@ -14,7 +14,13 @@ namespace RoslynNUnitLight
 
         protected void NoDiagnostic(string code, string diagnosticId)
         {
-            var document = GetDocument(code);
+            var document = Code.GetDocument(code, LanguageName);
+
+            NoDiagnostic(document, diagnosticId);
+        }
+
+        protected void NoDiagnostic(Document document, string diagnosticId)
+        {
             var diagnostics = GetDiagnostics(document);
 
             Assert.That(diagnostics.Any(d => d.Id == diagnosticId), Is.False);
@@ -24,8 +30,13 @@ namespace RoslynNUnitLight
         {
             Document document;
             TextSpan span;
-            Assert.That(TryGetDocumentAndSpan(markupCode, out document, out span), Is.True);
+            Assert.That(Code.TryGetDocumentAndSpanFromMarkup(markupCode, LanguageName, out document, out span), Is.True);
 
+            HasDiagnostic(document, span, diagnosticId);
+        }
+
+        protected void HasDiagnostic(Document document, TextSpan span, string diagnosticId)
+        {
             var diagnostics = GetDiagnostics(document);
             Assert.That(diagnostics.Length, Is.EqualTo(1));
 

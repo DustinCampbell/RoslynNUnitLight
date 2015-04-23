@@ -19,6 +19,11 @@ namespace RoslynNUnitLight
             TextSpan span;
             Assert.That(TryGetDocumentAndSpan(markupCode, out document, out span), Is.True);
 
+            TestCodeRefactoring(document, span, expected);
+        }
+
+        protected void TestCodeRefactoring(Document document, TextSpan span, string expected)
+        {
             var codeRefactorings = GetCodeRefactorings(document, span);
 
             Assert.That(codeRefactorings.Length, Is.EqualTo(1));

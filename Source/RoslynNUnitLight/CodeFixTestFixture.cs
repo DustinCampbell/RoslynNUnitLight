@@ -19,6 +19,11 @@ namespace RoslynNUnitLight
             TextSpan span;
             Assert.That(TryGetDocumentAndSpan(markupCode, out document, out span), Is.True);
 
+            TestCodeFix(document, span, expected, descriptor);
+        }
+
+        protected void TestCodeFix(Document document, TextSpan span, string expected, DiagnosticDescriptor descriptor)
+        {
             var codeFixes = GetCodeFixes(document, span, descriptor);
             Assert.That(codeFixes.Length, Is.EqualTo(1));
 

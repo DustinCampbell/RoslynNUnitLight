@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace RoslynNUnitLight
 {
-    public static class Code
+    public static class TestHelpers
     {
         public static bool TryGetCodeAndSpanFromMarkup(string markupCode, out string code, out TextSpan span)
         {
@@ -41,6 +41,11 @@ namespace RoslynNUnitLight
 
         public static bool TryGetDocumentAndSpanFromMarkup(string markupCode, string languageName, out Document document, out TextSpan span)
         {
+            return TryGetDocumentAndSpanFromMarkup(markupCode, languageName, null, out document, out span);
+        }
+
+        public static bool TryGetDocumentAndSpanFromMarkup(string markupCode, string languageName, ImmutableList<MetadataReference> references, out Document document, out TextSpan span)
+        {
             string code;
             if (!TryGetCodeAndSpanFromMarkup(markupCode, out code, out span))
             {
@@ -48,7 +53,7 @@ namespace RoslynNUnitLight
                 return false;
             }
 
-            document = GetDocument(code, languageName);
+            document = GetDocument(code, languageName, references);
             return true;
         }
 

@@ -9,7 +9,7 @@
     <projectUrl>http://github.com/DustinCampbell/RoslynNUnitLight</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A lightweight framework for creating unit tests for Roslyn diagnostic analyzers, code fixes and refactorings using NUnit.</description>
-    <copyright>Copyright 2015</copyright>
+    <copyright>Copyright 2015 by Dustin Campbell</copyright>
     <language>en-US</language>
     <tags>Roslyn CodeAnalysis nunit test testing tdd analyzer fixes refactor refactoring</tags>
     <dependencies>

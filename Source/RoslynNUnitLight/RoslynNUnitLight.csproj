@@ -97,6 +97,7 @@
     <Compile Include="BaseTestFixture.cs" />
     <Compile Include="CodeFixTestFixture.cs" />
     <Compile Include="CodeRefactoringTestFixture.cs" />
+    <Compile Include="MarkupCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Verify.cs" />
   </ItemGroup>

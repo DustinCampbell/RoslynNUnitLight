@@ -22,7 +22,7 @@ namespace RoslynNUnitLight
             var codeFixes = GetCodeFixes(document, span, descriptor);
             Assert.That(codeFixes.Length, Is.EqualTo(1));
 
-            VerifyCodeAction(codeFixes[0], document, expected);
+            Verify.CodeAction(codeFixes[0], document, expected);
         }
 
         private ImmutableArray<CodeAction> GetCodeFixes(Document document, TextSpan span, DiagnosticDescriptor descriptor)

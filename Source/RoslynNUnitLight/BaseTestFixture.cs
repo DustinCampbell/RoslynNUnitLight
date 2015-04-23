@@ -1,11 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.Text;
-using NUnit.Framework;
 
 namespace RoslynNUnitLight
 {
@@ -63,24 +60,6 @@ namespace RoslynNUnitLight
                 .AddMetadataReference(MetadataReference.CreateFromAssembly(typeof(object).GetTypeInfo().Assembly))
                 .AddMetadataReference(MetadataReference.CreateFromAssembly(typeof(Enumerable).GetTypeInfo().Assembly))
                 .AddDocument("TestDocument", code);
-        }
-
-        protected static void VerifyCodeAction(CodeAction codeAction, Document document, string expectedCode)
-        {
-            var operations = codeAction.GetOperationsAsync(CancellationToken.None).Result;
-
-            Assert.That(operations.Count(), Is.EqualTo(1));
-
-            var operation = operations.Single();
-            var workspace = document.Project.Solution.Workspace;
-            operation.Apply(workspace, CancellationToken.None);
-
-            var newDocument = workspace.CurrentSolution.GetDocument(document.Id);
-
-            var sourceText = newDocument.GetTextAsync(CancellationToken.None).Result;
-            var text = sourceText.ToString();
-
-            Assert.That(text, Is.EqualTo(expectedCode));
         }
     }
 }

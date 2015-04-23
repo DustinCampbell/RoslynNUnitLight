@@ -23,7 +23,7 @@ namespace RoslynNUnitLight
 
             Assert.That(codeRefactorings.Length, Is.EqualTo(1));
 
-            VerifyCodeAction(codeRefactorings[0], document, expected);
+            Verify.CodeAction(codeRefactorings[0], document, expected);
         }
 
         private ImmutableArray<CodeAction> GetCodeRefactorings(Document document, TextSpan span)

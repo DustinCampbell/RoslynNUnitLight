@@ -2,7 +2,7 @@ $CurrentPath = $(Get-Location)
 $BinariesPath = Join-Path $CurrentPath "Binaries\Release"
 $PackagePath = Join-Path $BinariesPath "Package"
 $LibPath = Join-Path $PackagePath "lib"
-$PortableLibPath = Join-Path $LibPath "portable-net45+win8"
+$PortableLibPath = Join-Path $LibPath "portable-net45+win8+wp8+wpa81"
 $NuGet = Join-Path $CurrentPath "Tools\NuGet\NuGet.exe"
 $Solution = Join-Path $CurrentPath "RoslynNUnitLight.sln"
 $NuSpec = Join-Path $CurrentPath "RoslynNUnitLight.nuspec"
@@ -36,7 +36,7 @@ New-Item $LibPath -Type Directory | Out-Null
 
 New-Item $PortableLibPath -Type Directory | Out-Null
 
-"  * Created `"lib\portable-net45+win8`" directory"
+"  * Created `"lib\portable-net45+win8+wp8+wpa81`" directory"
 
 Copy-Item -Path $DllPath -Destination (Join-Path $PortableLibPath $DllName)
 

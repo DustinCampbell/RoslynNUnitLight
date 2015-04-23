@@ -1,0 +1,81 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- This file is imported by all projects at the beginning of the project files -->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
+  	      Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
+  <!-- Path settings -->
+  <PropertyGroup>
+  	<RootPath Condition=" '$(RootPath)' == '' ">$(MSBuildProjectDirectory)$(RelativePath)</RootPath>
+    <BinariesPath Condition=" '$(BinariesPath)' == '' ">$(RootPath)\Binaries</BinariesPath>
+    <ToolsPath Condition=" '$(ToolsPath)' == '' ">$(RootPath)\Tools</ToolsPath>
+  </PropertyGroup>
+
+  <!-- Language name -->
+  <Choose>
+    <When Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+      <PropertyGroup>
+        <LanguageName>CSharp</LanguageName>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
+      <PropertyGroup>
+        <LanguageName>VB</LanguageName>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
+      <PropertyGroup>
+        <LanguageName>FSharp</LanguageName>
+      </PropertyGroup>
+    </When>
+  </Choose>
+
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(OutDir)' == '' ">
+    <!-- If we don't already have an OutDir, set one-->
+    <OutDir>$(BinariesPath)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputPath>$(OutDir)</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RootNamespace>$(MSBuildProjectName)</RootNamespace>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(LanguageName)' == 'Debug|FSharp'">
+    <Tailcalls>false</Tailcalls>
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(LanguageName)' == 'Release|FSharp'">
+    <Tailcalls>true</Tailcalls>
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+
+  
+</Project>

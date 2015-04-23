@@ -14,7 +14,7 @@ namespace RoslynNUnitLight
 
         protected void NoDiagnostic(string code, string diagnosticId)
         {
-            var document = Code.GetDocument(code, LanguageName);
+            var document = TestHelpers.GetDocument(code, LanguageName);
 
             NoDiagnostic(document, diagnosticId);
         }
@@ -30,7 +30,7 @@ namespace RoslynNUnitLight
         {
             Document document;
             TextSpan span;
-            Assert.That(Code.TryGetDocumentAndSpanFromMarkup(markupCode, LanguageName, out document, out span), Is.True);
+            Assert.That(TestHelpers.TryGetDocumentAndSpanFromMarkup(markupCode, LanguageName, out document, out span), Is.True);
 
             HasDiagnostic(document, span, diagnosticId);
         }

@@ -17,7 +17,7 @@ namespace RoslynNUnitLight
         {
             Document document;
             TextSpan span;
-            Assert.That(Code.TryGetDocumentAndSpanFromMarkup(markupCode, LanguageName, out document, out span), Is.True);
+            Assert.That(TestHelpers.TryGetDocumentAndSpanFromMarkup(markupCode, LanguageName, out document, out span), Is.True);
 
             TestCodeFix(document, span, expected, descriptor);
         }

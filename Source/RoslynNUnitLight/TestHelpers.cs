@@ -57,7 +57,7 @@ namespace RoslynNUnitLight
             return true;
         }
 
-        internal static Document GetDocument(string code, string languageName, ImmutableList<MetadataReference> references = null)
+        public static Document GetDocument(string code, string languageName, ImmutableList<MetadataReference> references = null)
         {
             references = references ?? ImmutableList.Create(
                 MetadataReference.CreateFromAssembly(typeof(object).GetTypeInfo().Assembly),

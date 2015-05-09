@@ -73,11 +73,12 @@ namespace RoslynNUnitLight.Setup
         private string GetNextDefaultDocumentName() =>
             $"{nameof(TestDocument)}{defaultDocumentNameOrdinal++}";
 
-        public TestDocument AddDocument(string name = null)
+        public TestDocument AddDocument(string name = null, string text = null)
         {
             name = name ?? GetNextDefaultDocumentName();
+            text = text ?? string.Empty;
 
-            var result = new TestDocument(this, name);
+            var result = new TestDocument(this, name, text);
             this.documents.Add(result);
 
             return result;

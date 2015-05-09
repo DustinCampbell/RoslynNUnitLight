@@ -12,33 +12,56 @@ namespace RoslynNUnitLight.Setup
         private int defaultDocumentNameOrdinal = 1;
 
         private readonly List<TestDocument> documents;
-        private readonly List<MetadataReference> references;
+        private readonly List<MetadataReference> metadataReferences;
         private readonly ReadOnlyCollection<TestDocument> readOnlyDocuments;
-        private readonly ReadOnlyCollection<MetadataReference> readOnlyReferences;
+        private readonly ReadOnlyCollection<MetadataReference> readOnlyMetadataReferences;
 
         public TestSolution TestSolution { get; }
+        public ProjectId Id { get; }
         public string Name { get; }
         public string LanguageName { get; }
 
         public ReadOnlyCollection<TestDocument> Documents => readOnlyDocuments;
-        public ReadOnlyCollection<MetadataReference> References => readOnlyReferences;
+        public ReadOnlyCollection<MetadataReference> MetadataReferences => readOnlyMetadataReferences;
 
         internal TestProject(TestSolution testSolution, string languageName, string name, bool includeCommonReferences)
         {
             this.TestSolution = testSolution;
+            this.Id = ProjectId.CreateNewId();
             this.Name = name;
             this.LanguageName = languageName;
 
             this.documents = new List<TestDocument>();
-            this.references = new List<MetadataReference>();
+            this.metadataReferences = new List<MetadataReference>();
             this.readOnlyDocuments = new ReadOnlyCollection<TestDocument>(this.documents);
-            this.readOnlyReferences = new ReadOnlyCollection<MetadataReference>(this.references);
+            this.readOnlyMetadataReferences = new ReadOnlyCollection<MetadataReference>(this.metadataReferences);
 
             if (includeCommonReferences)
             {
                 AddCommonReferences();
             }
         }
+
+        public static TestProject Create(string languageName, string name = null, bool includeCommonReferences = true)
+        {
+            var testSolution = TestSolution.Create();
+            return testSolution.AddProject(languageName, name);
+        }
+
+        internal ProjectInfo ToProjectInfo() =>
+            ProjectInfo.Create(
+                id: this.Id,
+                version: VersionStamp.Create(),
+                name: this.Name,
+                assemblyName: this.Name,
+                language: this.LanguageName,
+                documents: this.documents.Select(d => d.ToDocumentInfo()),
+                metadataReferences: this.metadataReferences);
+
+        public Project ToProject() =>
+            this.TestSolution
+                .ToSolution()
+                .GetProject(this.Id);
 
         private void AddCommonReferences()
         {
@@ -67,7 +90,7 @@ namespace RoslynNUnitLight.Setup
                 throw new ArgumentNullException(nameof(reference));
             }
 
-            this.references.Add(reference);
+            this.metadataReferences.Add(reference);
         }
 
         public void AddReferences(IEnumerable<MetadataReference> references)
@@ -77,7 +100,7 @@ namespace RoslynNUnitLight.Setup
                 throw new ArgumentNullException(nameof(references));
             }
 
-            this.references.AddRange(references);
+            this.metadataReferences.AddRange(references);
         }
 
         public void AddReferences(params MetadataReference[] references)
@@ -87,13 +110,7 @@ namespace RoslynNUnitLight.Setup
                 throw new ArgumentNullException(nameof(references));
             }
 
-            this.references.AddRange(references);
-        }
-
-        public static TestProject Create(string languageName, string name = null, bool includeCommonReferences = true)
-        {
-            var testSolution = TestSolution.Create(name);
-            return testSolution.AddProject(languageName, name);
+            this.metadataReferences.AddRange(references);
         }
     }
 }

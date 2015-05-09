@@ -10,20 +10,6 @@ namespace RoslynNUnitLight.Tests
     public class SetupTests
     {
         [Test]
-        public void SolutionCreatedWithNoNameHasDefaultName()
-        {
-            var solution = TestSolution.Create();
-            solution.Name.Should().Be(nameof(TestSolution));
-        }
-
-        [Test]
-        public void SolutionCreatedWithNameHasName()
-        {
-            var solution = TestSolution.Create("MySolution");
-            solution.Name.Should().Be("MySolution");
-        }
-
-        [Test]
         public void ProjectAddedWithNoNameHasDefaultName()
         {
             var solution = TestSolution.Create();

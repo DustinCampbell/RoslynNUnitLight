@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.CodeAnalysis;
 
 namespace RoslynNUnitLight.Setup
@@ -7,20 +8,26 @@ namespace RoslynNUnitLight.Setup
     public class TestSolution
     {
         private int defaultProjectNameOrdinal = 1;
+
         private readonly List<TestProject> projects;
+        private readonly ReadOnlyCollection<TestProject> readOnlyProjects;
 
         public string Name { get; }
 
+        public ReadOnlyCollection<TestProject> Projects => this.readOnlyProjects;
+
         private TestSolution(string name)
         {
-            this.projects = new List<TestProject>();
             this.Name = name ?? nameof(TestSolution);
+
+            this.projects = new List<TestProject>();
+            this.readOnlyProjects = new ReadOnlyCollection<TestProject>(this.projects);
         }
 
         private string GetNextDefaultProjectName() =>
             $"{nameof(TestProject)}{defaultProjectNameOrdinal++}";
 
-        public TestProject AddProject(string languageName, string name = null)
+        public TestProject AddProject(string languageName, string name = null, bool includeCommonReferences = true)
         {
             if (languageName == null)
             {
@@ -37,7 +44,7 @@ namespace RoslynNUnitLight.Setup
 
             name = name ?? GetNextDefaultProjectName();
 
-            var result = new TestProject(this, languageName, name);
+            var result = new TestProject(this, languageName, name, includeCommonReferences);
             this.projects.Add(result);
 
             return result;

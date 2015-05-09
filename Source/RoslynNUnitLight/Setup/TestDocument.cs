@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RoslynNUnitLight.Setup
+﻿namespace RoslynNUnitLight.Setup
 {
     public class TestDocument
     {
         public string Name { get; }
 
-        public TestDocument(string name)
+        internal TestDocument(string name)
         {
             this.Name = name;
+        }
+
+        public static TestDocument Create(string languageName, string name = null)
+        {
+            var testProject = TestProject.Create(languageName);
+            return testProject.AddDocument(name);
         }
     }
 }

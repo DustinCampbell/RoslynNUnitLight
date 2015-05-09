@@ -2,10 +2,12 @@
 {
     public class TestDocument
     {
+        public TestProject TestProject { get; }
         public string Name { get; }
 
-        internal TestDocument(string name)
+        internal TestDocument(TestProject testProject, string name)
         {
+            this.TestProject = testProject;
             this.Name = name;
         }
 

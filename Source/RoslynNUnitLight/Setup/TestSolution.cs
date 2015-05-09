@@ -6,10 +6,7 @@ namespace RoslynNUnitLight.Setup
 {
     public class TestSolution
     {
-        private const string DefaultSolutionName = "TestSolution";
-        private const string DefaultProjectName = "TestProject";
         private int defaultProjectNameOrdinal = 1;
-
         private readonly List<TestProject> projects;
 
         public string Name { get; }
@@ -17,11 +14,11 @@ namespace RoslynNUnitLight.Setup
         private TestSolution(string name)
         {
             this.projects = new List<TestProject>();
-            this.Name = name ?? DefaultSolutionName;
+            this.Name = name ?? nameof(TestSolution);
         }
 
         private string GetNextDefaultProjectName() =>
-            $"{DefaultProjectName}{defaultProjectNameOrdinal++}";
+            $"{nameof(TestProject)}{defaultProjectNameOrdinal++}";
 
         public TestProject AddProject(string languageName, string name = null)
         {

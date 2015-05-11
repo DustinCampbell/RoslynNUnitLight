@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using Microsoft.CodeAnalysis;
@@ -8,6 +9,7 @@ using NUnit.Framework;
 
 namespace RoslynNUnitLight
 {
+    [Obsolete("Derive from AnalysisTestFixture instead.")]
     public abstract class AnalyzerTestFixture : BaseTestFixture
     {
         protected abstract DiagnosticAnalyzer CreateAnalyzer();

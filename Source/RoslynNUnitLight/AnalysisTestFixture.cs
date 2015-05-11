@@ -60,7 +60,7 @@ namespace RoslynNUnitLight
                 cancellationToken: CancellationToken.None);
 
             ImmutableArray<Diagnostic> compilerDiagnostics = compilation.GetDiagnostics(CancellationToken.None);
-            AssertCompilerDiagnostics(compilerDiagnostics);
+            ValidateCompilerDiagnostics(compilerDiagnostics);
 
             SyntaxTree tree = document.GetSyntaxTreeAsync().Result;
 
@@ -77,9 +77,9 @@ namespace RoslynNUnitLight
             return builder.ToImmutable();
         }
 
-        protected virtual void AssertCompilerDiagnostics(ImmutableArray<Diagnostic> compilerDiagnostics)
+        protected virtual void ValidateCompilerDiagnostics(ImmutableArray<Diagnostic> compilerDiagnostics)
         {
-            var hasErrors = compilerDiagnostics.Any(d => d.Severity == DiagnosticSeverity.Error);
+            bool hasErrors = compilerDiagnostics.Any(d => d.Severity == DiagnosticSeverity.Error);
             Assert.That(hasErrors, Is.False);
         }
 

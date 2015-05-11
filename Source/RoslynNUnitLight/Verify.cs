@@ -20,7 +20,7 @@ namespace RoslynNUnitLight
 
             var newDocument = workspace.CurrentSolution.GetDocument(document.Id);
 
-            var sourceText = newDocument.GetTextAsync(CancellationToken.None).Result;
+            var sourceText = newDocument.GetTextAsync().Result;
             var text = sourceText.ToString();
 
             Assert.That(text, Is.EqualTo(expectedCode));

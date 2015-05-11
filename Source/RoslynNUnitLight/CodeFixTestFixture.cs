@@ -9,6 +9,7 @@ using NUnit.Framework;
 
 namespace RoslynNUnitLight
 {
+    [Obsolete("Derive from AnalysisTestFixture instead.")]
     public abstract class CodeFixTestFixture : BaseTestFixture
     {
         protected abstract CodeFixProvider CreateProvider();

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>RoslynNUnitLight</id>
-    <version>1.0.0-rc4</version>
+    <version>1.0.0</version>
     <authors>Dustin Campbell</authors>
     <owners>Dustin Campbell</owners>
     <licenseUrl>https://raw.githubusercontent.com/DustinCampbell/RoslynNUnitLight/master/License.txt</licenseUrl>
@@ -13,8 +13,8 @@
     <language>en-US</language>
     <tags>Roslyn CodeAnalysis nunit test testing tdd analyzer fixes refactor refactoring</tags>
     <dependencies>
-      <dependency id="Microsoft.CodeAnalysis.CSharp.Workspaces" version="[1.0.0-rc2]" />
-      <dependency id="Microsoft.CodeAnalysis.VisualBasic.Workspaces" version="[1.0.0-rc2]" />
+      <dependency id="Microsoft.CodeAnalysis.CSharp.Workspaces" version="[1.0.0]" />
+      <dependency id="Microsoft.CodeAnalysis.VisualBasic.Workspaces" version="[1.0.0]" />
       <dependency id="NUnit" version="2.6.4" />
     </dependencies>
   </metadata>

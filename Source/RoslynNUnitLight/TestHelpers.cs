@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
+using RoslynNUnitLight.Reflection;
 
 namespace RoslynNUnitLight
 {
@@ -59,9 +60,9 @@ namespace RoslynNUnitLight
 
         public static Document GetDocument(string code, string languageName, ImmutableList<MetadataReference> references = null)
         {
-            references = references ?? ImmutableList.Create(
-                MetadataReference.CreateFromAssembly(typeof(object).GetTypeInfo().Assembly),
-                MetadataReference.CreateFromAssembly(typeof(Enumerable).GetTypeInfo().Assembly));
+            references = references ?? ImmutableList.Create<MetadataReference>(
+                MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.GetLocation()),
+                MetadataReference.CreateFromFile(typeof(Enumerable).GetTypeInfo().Assembly.GetLocation()));
 
             return new AdhocWorkspace()
                 .AddProject("TestProject", languageName)

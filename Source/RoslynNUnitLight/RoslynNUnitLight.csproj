@@ -73,6 +73,7 @@
     <Compile Include="BaseTestFixture.cs" />
     <Compile Include="CodeFixTestFixture.cs" />
     <Compile Include="CodeRefactoringTestFixture.cs" />
+    <Compile Include="TestCode.cs" />
     <Compile Include="Reflection\ReflectionExtensions.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

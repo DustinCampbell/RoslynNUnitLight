@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22609.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoslynNUnitLight", "Source\RoslynNUnitLight\RoslynNUnitLight.csproj", "{C0E561D6-995A-477D-9AD6-3636CB7F2F4C}"
 EndProject
@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4513EE
 	ProjectSection(SolutionItems) = preProject
 		RoslynNUnitLight.nuspec = RoslynNUnitLight.nuspec
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoslynNUnitLight.Tests", "Source\RoslynNUnitLight.Tests\RoslynNUnitLight.Tests.csproj", "{08B8AD50-DFA2-4697-84EF-F019AF96E66D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{C0E561D6-995A-477D-9AD6-3636CB7F2F4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0E561D6-995A-477D-9AD6-3636CB7F2F4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0E561D6-995A-477D-9AD6-3636CB7F2F4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08B8AD50-DFA2-4697-84EF-F019AF96E66D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08B8AD50-DFA2-4697-84EF-F019AF96E66D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08B8AD50-DFA2-4697-84EF-F019AF96E66D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08B8AD50-DFA2-4697-84EF-F019AF96E66D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

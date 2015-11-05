@@ -1,52 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.CodeAnalysis.Text;
 
 namespace RoslynNUnitLight
 {
-    public class TestCode
+    public partial class TestCode
     {
         public string OriginalText { get; }
         public string Code { get; }
         public int? Position { get; }
-        private readonly Dictionary<string, List<TextSpan>> spans;
+        private readonly Dictionary<string, List<TextSpan>> spanMap;
 
-        private TestCode(string originalText, string code, int? position, Dictionary<string, List<TextSpan>> spans)
+        private static readonly IReadOnlyList<TextSpan> EmptySpans = new TextSpan[0];
+
+        private TestCode(string originalText, string code, int? position, Dictionary<string, List<TextSpan>> spanMap)
         {
             this.OriginalText = originalText;
             this.Code = code;
             this.Position = position;
-            this.spans = spans;
+            this.spanMap = spanMap;
         }
 
-        private struct CharStream
+        public IReadOnlyList<TextSpan> GetSpans(string name = null)
         {
-            private readonly char[] array;
-            private int index;
+            name = name ?? string.Empty;
 
-            public CharStream(char[] array)
+            List<TextSpan> spans;
+            if (this.spanMap.TryGetValue(name, out spans))
             {
-                this.array = array;
-                this.index = 0;
+                return spans;
             }
 
-            public bool HasNext => index < array.Length;
-
-            public char Next() => array[index++];
-
-            public char? Peek(int offset = 0) =>
-                index + offset < array.Length ? array[index + offset] : (char?)null;
-
-            public void Skip(int count)
-            {
-                index += count;
-
-                if (index > array.Length)
-                {
-                    index = array.Length;
-                }
-            }
+            return EmptySpans;
         }
 
         public static TestCode Parse(string text)
@@ -56,46 +41,10 @@ namespace RoslynNUnitLight
                 throw new ArgumentNullException(nameof(text));
             }
 
-            var code = new StringBuilder(capacity: text.Length);
-            var stream = new CharStream(text.ToCharArray());
-            var codeIndex = 0;
-            int? position = null;
+            var parser = new Parser(text.ToCharArray());
+            parser.Parse();
 
-            while (stream.HasNext)
-            {
-                var ch = stream.Next();
-                switch (ch)
-                {
-                    case '$': // $$
-                        if (stream.Peek() == '$' && stream.Peek(1) != '$')
-                        {
-                            if (position != null)
-                            {
-                                throw new ArgumentException("$$ can only appear once.", nameof(text));
-                            }
-
-                            position = codeIndex;
-                            stream.Skip(1);
-                            continue;
-                        }
-
-                        // We found a $, but it isn't the $$ we're looking for. Add everything
-                        // up to the next non-$ character and continue the outer loop.
-
-                        code.Append(ch);
-                        while (stream.Peek() == '$')
-                        {
-                            code.Append(stream.Next());
-                        }
-
-                        continue;
-                }
-
-                code.Append(ch);
-                codeIndex++;
-            }
-
-            return new TestCode(text, code.ToString(), position, spans: null);
+            return new TestCode(text, parser.Code, parser.Position, parser.SpanMap);
         }
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="CodeRefactoringTestFixture.cs" />
     <Compile Include="TestCode.cs" />
     <Compile Include="Reflection\ReflectionExtensions.cs" />
+    <Compile Include="TestCode.Parser.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Verify.cs" />

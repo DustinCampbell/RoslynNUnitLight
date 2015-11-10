@@ -22,6 +22,25 @@ namespace RoslynNUnitLight
             TestCodeFix(document, span, expected, descriptor);
         }
 
+        protected void TestCodeFix( string markupCode, string[] expecteds, DiagnosticDescriptor descriptor )
+        {
+            string code;
+            TextSpan span;
+            Assert.That( TestHelpers.TryGetCodeAndSpanFromMarkup( markupCode, out code, out span ), Is.True );
+
+            var document = TestHelpers.GetDocument( code, LanguageName );
+            var codeFixCount = GetCodeFixes( document, span, descriptor ).Length;
+
+            Assert.That( expecteds.Length, Is.EqualTo( codeFixCount ) );
+
+            for ( var i = 0; i < codeFixCount; i++ )
+            {
+                document = TestHelpers.GetDocument( code, LanguageName );
+                var codeFixes = GetCodeFixes( document, span, descriptor );
+                Verify.CodeAction( codeFixes[i], document, expecteds[i] );
+            }
+        }
+
         protected void TestCodeFix(Document document, TextSpan span, string expected, DiagnosticDescriptor descriptor)
         {
             var codeFixes = GetCodeFixes(document, span, descriptor);
